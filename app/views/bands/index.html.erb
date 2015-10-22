@@ -1,8 +1,8 @@
 <h1>Bands Index</h1>
 
-<% @band_and_albums.each do |band, albums| %>
+<% @band_and_albums.each do |band| %>
   <%= band.alias %>
-  <ul><% albums.each do |album| %>
+  <ul><% band.albums.each do |album| %>
     <li><%= album.title %></li>
     <form action=" <%= edit_album_url(album) %>" method="post">
       <%= auth_token %>

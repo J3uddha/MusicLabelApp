@@ -1,7 +1,7 @@
 class BandsController < ApplicationController
 
   def index
-    @band_and_albums = Band.inlcudes(:albums)
+    @band_and_albums = Band.includes(:albums)
     # @band_and_albums = Hash.new { |h,k| h[k]=[] }
     # Album.all.each do |album|
     #   @band_and_albums[album.band_id] << album
