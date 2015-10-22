@@ -8,7 +8,7 @@ class Album < ActiveRecord::Base
   primary_key: :id
 
 
-  has_many :tracks,
+  has_many :tracks, dependent: :destroy,
   class_name: "Track",
   foreign_key: :album_id,
   primary_key: :id

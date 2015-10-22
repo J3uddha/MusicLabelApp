@@ -2,6 +2,7 @@ class AlbumsController < ApplicationController
 
   def new
     @album = Album.new
+    @bands = Band.all
     render :new
   end
 
@@ -18,6 +19,12 @@ class AlbumsController < ApplicationController
 
   def show
     render :show
+  end
+
+  private
+
+  def album_params
+    params.require(:album).permit(:title, :recording, :band_id)
   end
 
 end

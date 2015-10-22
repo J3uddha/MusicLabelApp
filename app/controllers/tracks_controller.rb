@@ -1,7 +1,8 @@
 class TracksController < ApplicationController
 
   def new
-
+    @track = Track.new
+    @albums = Album.all
     render :new
   end
 
@@ -18,6 +19,12 @@ class TracksController < ApplicationController
 
   def show
     render :show
+  end
+
+  private
+
+  def track_params
+    params.require(:track).permit(:name, :album_id)
   end
 
 end
