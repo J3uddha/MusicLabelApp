@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022142809) do
+ActiveRecord::Schema.define(version: 20151022185828) do
+
+  create_table "albums", force: :cascade do |t|
+    t.string   "title",      null: false
+    t.boolean  "recording"
+    t.integer  "band_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bands", force: :cascade do |t|
+    t.string   "alias",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "album_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",           null: false
