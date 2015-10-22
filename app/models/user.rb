@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
-  validates :email, :password_digest, :session_token, presence: true
-  validates :email, uniqueness: true
+  validates :email, :password, :password_digest, :session_token, presence: true
+  validates :email, :session_token, uniqueness: true
 
   after_initialize :ensure_session_token
 
@@ -16,13 +16,15 @@ class User < ActiveRecord::Base
 
   def ensure_session_token
     self.session_token ||= SecureRandom::urlsafe_base64
-    self.save!
   end
 
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
-    self.save!
+  end
+
+  def password
+    @password
   end
 
   def is_password?(password) #crypted or uncrypted password arg?

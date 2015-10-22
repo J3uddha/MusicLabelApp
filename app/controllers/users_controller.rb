@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
 
+  before_action :guest_redirect, only: [:show]
+
   def new
+    @user = User.new
     render :new
   end
 
@@ -9,18 +12,24 @@ class UsersController < ApplicationController
 
     if @user.save!
       log_in!(@user)
-      render :show #doesn't lead anywhere
+      render :show
     else
       flash[:notice] = @user.errors.full_messages
       render :new
     end
+  end
 
+  def show
+    render :show
   end
 
   private
 
   def user_params
-    params[:user].permit(:email, :password)
+    params.require(:user).permit(:email, :password)
   end
 
+  def guest_redirect
+      redirect_to new_user_url if current_user.nil?
+    end
 end
