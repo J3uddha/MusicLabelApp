@@ -2,14 +2,14 @@
 
 <% @band_and_albums.each do |band, albums| %>
   <%= band.alias %>
-  <ol><% albums.each do |album| %>
+  <ul><% albums.each do |album| %>
     <li><%= album.title %></li>
-    <form action=" <%= edit_album_url %>" method="post">
+    <form action=" <%= edit_album_url(album) %>" method="post">
       <%= auth_token %>
       <input type="submit" value="Edit Album">
     </form>
   <% end %>
-  </ol>
+</ul>
 <% end %>
 
 <form action=" <%= new_album_url %>" method="get">

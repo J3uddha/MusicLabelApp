@@ -1,12 +1,11 @@
 class BandsController < ApplicationController
 
   def index
-    @bands = Band.all
-    @band_and_albums = Hash.new { |h,k| h[k]=[] }
-
-    @bands.each do |band|
-      @band_and_albums[band] << Album.find_by_band_id(band.id)
-    end
+    @band_and_albums = Band.inlcudes(:albums)
+    # @band_and_albums = Hash.new { |h,k| h[k]=[] }
+    # Album.all.each do |album|
+    #   @band_and_albums[album.band_id] << album
+    # end
     render :index
   end
 
