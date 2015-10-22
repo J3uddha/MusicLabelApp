@@ -9,4 +9,10 @@ module ApplicationHelper
     HTML
   end
 
+  def log_out_button
+    <<-HTML.html_safe
+      <button value='submit'>Log Out</button>
+    HTML
+  end
+
 end
