@@ -6,31 +6,21 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(:email, user[:email])
+    @user = User.find_by_credentials(params[:user][:email], params[:user][:password])
 
     if @user.nil?
-      flash[:notice] = @user.errors.full_messages
+      flash[:notice] = "Could not find login information. Try again"
       render :new
     else
-      unless @user.is_password?(user[:password])
-        flash[:notice] = "Wrong password."
-        render :new
-      end
+      flash[:notice] = "Success"
+      log_in!(@user)
+      redirect_to user_url(@user)
     end
-
-    log_in(@user)
-    redirect_to user_url
   end
 
   def destroy
     log_out
     render :new
-  end
-
-  private
-
-  def session_params
-    params.require(:session).permit(:session_token)
   end
 
 end

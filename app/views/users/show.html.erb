@@ -1,6 +1,6 @@
-<form method="post">
+<form action="<%= session_url %>" method="post">
   <input type="hidden" name="_method" value="delete">
-<% button_to "Log Out", method: :delete %>
-</form>
+  <button value="submit">Log Out</button>
+  </form>
 <h1> <%= @user.email %>
 <p> current user logged in </p>

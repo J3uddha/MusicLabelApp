@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  validates :email, :password, :password_digest, :session_token, presence: true
+  validates :email, :password_digest, :session_token, presence: true
   validates :email, :session_token, uniqueness: true
 
   after_initialize :ensure_session_token
@@ -27,18 +27,14 @@ class User < ActiveRecord::Base
     @password
   end
 
-  def is_password?(password) #crypted or uncrypted password arg?
-    self.password_digest == BCrypt::Password.create(password)
+  def is_password?(password)
+   BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
   def self.find_by_credentials(email, password)
-    user = User.find_by(:email, email)
-
-    unless user.nil?
-      return false unless user.is_password?(password)
-    end
-
-    user
+    user = User.find_by_email(email)
+    return nil if user.nil?
+    user.is_password?(password) ? user : nil
   end
 
 end

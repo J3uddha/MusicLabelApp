@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = current_user
     render :show
   end
 
@@ -30,6 +31,6 @@ class UsersController < ApplicationController
   end
 
   def guest_redirect
-      redirect_to new_user_url if current_user.nil?
-    end
+    redirect_to new_user_url if current_user.nil?
+  end
 end
